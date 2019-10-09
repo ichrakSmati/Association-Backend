@@ -24,6 +24,11 @@ public class EventController {
 		return eventService.getAll();
 	}
 	
+	@RequestMapping(value="/activate" , method=RequestMethod.GET)
+	public List<Event> getListActivated(){
+		return eventService.getAllActivated();
+	}
+	
 	@RequestMapping(method=RequestMethod.POST)
 	public Event add(@RequestBody Event event){
 		return eventService.commit(event);

@@ -1,13 +1,17 @@
 package com.backend.models;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 
 @Entity(name = "Event")
 public class Event {
@@ -28,13 +32,24 @@ public class Event {
 	private Date dateDebut;
 	
 	@Column
-	private int nbrJour;
+	private Date dateFin;
 	
 	@Column
 	private Date dateModification;
 	
 	@Column 
-	private String type;
+	private Boolean etat;
+	
+	@Column
+	private String address;
+	
+	@ManyToMany
+	@JoinTable( name = "event_tag", joinColumns = @JoinColumn(name = "event_id"), inverseJoinColumns = @JoinColumn(name = "tag_id"))
+	List<Tag> tags;
+
+	@ManyToMany
+	@JoinTable( name = "event_participant", joinColumns = @JoinColumn(name = "event_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+	List<User> participants;
 
 	public int getId() {
 		return id;
@@ -68,13 +83,6 @@ public class Event {
 		this.dateDebut = dateDebut;
 	}
 
-	public int getNbrJour() {
-		return nbrJour;
-	}
-
-	public void setNbrJour(int nbrJour) {
-		this.nbrJour = nbrJour;
-	}
 
 	public Date getDateModification() {
 		return dateModification;
@@ -84,12 +92,45 @@ public class Event {
 		this.dateModification = dateModification;
 	}
 
-	public String getType() {
-		return type;
+	public Boolean getEtat() {
+		return etat;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void setEtat(Boolean etat) {
+		this.etat = etat;
 	}
+
+	public Date getDateFin() {
+		return dateFin;
+	}
+
+	public void setDateFin(Date dateFin) {
+		this.dateFin = dateFin;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public List<Tag> getTags() {
+		return tags;
+	}
+
+	public void setTags(List<Tag> tags) {
+		this.tags = tags;
+	}
+
+	public List<User> getParticipants() {
+		return participants;
+	}
+
+	public void setParticipants(List<User> participants) {
+		this.participants = participants;
+	}
+
 	
 }
