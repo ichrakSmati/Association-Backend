@@ -29,6 +29,9 @@ public class Event {
 	private String description;
 	
 	@Column
+	private String flyer;
+	
+	@Column
 	private Date dateDebut;
 	
 	@Column
@@ -42,6 +45,10 @@ public class Event {
 	
 	@Column
 	private String address;
+	
+	@ManyToMany
+	@JoinTable( name = "event_image", joinColumns = @JoinColumn(name = "event_id"), inverseJoinColumns = @JoinColumn(name = "image_id"))
+	List<Gallery> images;
 	
 	@ManyToMany
 	@JoinTable( name = "event_tag", joinColumns = @JoinColumn(name = "event_id"), inverseJoinColumns = @JoinColumn(name = "tag_id"))
@@ -132,5 +139,20 @@ public class Event {
 		this.participants = participants;
 	}
 
-	
+	public String getFlyer() {
+		return flyer;
+	}
+
+	public void setFlyer(String flyer) {
+		this.flyer = flyer;
+	}
+
+	public List<Gallery> getImages() {
+		return images;
+	}
+
+	public void setImages(List<Gallery> images) {
+		this.images = images;
+	}
+
 }

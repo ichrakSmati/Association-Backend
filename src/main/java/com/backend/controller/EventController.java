@@ -4,11 +4,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.backend.models.Event;
+import com.backend.models.User;
 import com.backend.service.EventService;
 
 @RestController
@@ -43,5 +45,11 @@ public class EventController {
 	public ResponseEntity<?> delete(@RequestBody int eventId){
 		 eventService.delete(eventId);
 		 return ResponseEntity.ok(eventId+" deleted");
+	}
+	
+	@RequestMapping(value="/addParticipant/{eventId}", method=RequestMethod.POST)
+	public ResponseEntity<?> addParticipant(@PathVariable int eventId, @RequestBody User participant){
+		eventService.addPariticpant(eventId, participant);
+		 return ResponseEntity.ok(eventId+" particiant added");
 	}
 }

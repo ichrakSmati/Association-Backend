@@ -9,8 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
-@Entity(name = "Blog")
-public class Tag {
+@Entity(name = "Gallery")
+public class Gallery {
 
 	@Id
 	@Column
@@ -18,9 +18,9 @@ public class Tag {
 	private int id;
 	
 	@Column
-	private String tag;
+	private String image;
 	
-	@ManyToMany(mappedBy = "tags")
+	@ManyToMany(mappedBy = "images")
 	List<Event> events;
 
 	public int getId() {
@@ -31,12 +31,12 @@ public class Tag {
 		this.id = id;
 	}
 
-	public String getTag() {
-		return tag;
+	public String getImage() {
+		return image;
 	}
 
-	public void setTag(String tag) {
-		this.tag = tag;
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 	public List<Event> getEvents() {

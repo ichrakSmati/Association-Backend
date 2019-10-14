@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity(name = "User")
 public class User {
@@ -44,6 +46,10 @@ public class User {
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id")
     private Role role;
+	
+	@JsonManagedReference
+	@OneToMany(mappedBy="author")
+	private List<Blog> blogs;
 	
 	@Column
 	private String resetToken;
@@ -157,6 +163,14 @@ public class User {
 
 	public void setEvents(List<Event> events) {
 		this.events = events;
+	}
+
+	public List<Blog> getBlogs() {
+		return blogs;
+	}
+
+	public void setBlogs(List<Blog> blogs) {
+		this.blogs = blogs;
 	}	
 	
 	
