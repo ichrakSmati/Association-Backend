@@ -2,9 +2,6 @@ package com.backend.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -42,27 +39,16 @@ public class EventController {
 	
 	@RequestMapping(method=RequestMethod.POST)
 	public Event add(@RequestBody Event event){
-		
-		System.out.println("test");
 		if (event.getTags()!=null){
 			List<Tag> tags= new ArrayList<Tag>();
 			for (Tag tag : event.getTags()) {
-				if (!tagService.findByName(tag).isPresent()){
+				if (!tagService.findByName(tag).isPresent())
 					tagService.commit(tag);
-					System.out.println("tagname :"+ tag.getTag());
-				}
-					
-				else{
+				else
 					tag=tagService.findByName(tag).get();
-					System.out.println("tagid :"+ tag.getId());
-				}
 				tags.add(tag);
 			}
-			for (Tag tag : tags) {
-				System.out.println("tagId :"+ tag.getId());
-			}
 			event.setTags(tags);
-			
 		}
 		return eventService.commit(event);
 	}
