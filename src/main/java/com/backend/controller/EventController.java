@@ -58,10 +58,10 @@ public class EventController {
 		return eventService.commit(event);
 	}
 	
-	@RequestMapping(method=RequestMethod.DELETE)
-	public ResponseEntity<?> delete(@RequestBody int eventId){
-		 eventService.delete(eventId);
-		 return ResponseEntity.ok(eventId+" deleted");
+	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+	public ResponseEntity<?> delete(@PathVariable int id){
+		 eventService.delete(id);
+		 return ResponseEntity.ok(id+" deleted");
 	}
 	
 	@RequestMapping(value="/addParticipant/{eventId}", method=RequestMethod.POST)
