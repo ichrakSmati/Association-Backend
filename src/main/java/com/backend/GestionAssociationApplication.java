@@ -30,8 +30,10 @@ public class GestionAssociationApplication {
 	public static void main(String[] args) {
 		ApplicationContext applicationContext=SpringApplication.run(GestionAssociationApplication.class, args);
 		
+		
+		//BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+		
 		/*
-		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 		us=(UserService)applicationContext.getBean("userService");
 		rs=(RoleService)applicationContext.getBean("roleService");
 		
@@ -45,7 +47,8 @@ public class GestionAssociationApplication {
 		u1.setNom("fake1");
 		u1.setPrenom("user1");
 		u1.setRole(rs.findById(1));
-		u1.setPass(bCryptPasswordEncoder.encode("123"));
+		//u1.setPass(bCryptPasswordEncoder.encode("123"));
+		u1.setPass("123");
 		u1.setPhoto("cool");
 		u1.setEtat(true);
 		us.addUser(u1);
@@ -56,11 +59,13 @@ public class GestionAssociationApplication {
 		u2.setNom("fake2");
 		u2.setPrenom("user2");
 		u2.setRole(rs.findById(1));
-		u2.setPass(bCryptPasswordEncoder.encode("123"));
+		//u2.setPass(bCryptPasswordEncoder.encode("123"));
+		u2.setPass("123");
 		u2.setPhoto("cool");
 		u2.setEtat(true);
 		us.addUser(u2);
 		*/
+		
 	}
 
 }

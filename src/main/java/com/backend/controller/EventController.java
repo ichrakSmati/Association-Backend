@@ -1,6 +1,10 @@
 package com.backend.controller;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -10,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.backend.models.Event;
+import com.backend.models.Tag;
 import com.backend.models.User;
 import com.backend.service.EventService;
+import com.backend.service.TagService;
 
 @RestController
 @RequestMapping("/event")
@@ -21,6 +27,9 @@ public class EventController {
 	@Autowired
 	EventService eventService;
 	 
+	@Autowired
+	TagService tagService;
+	
 	@RequestMapping(method=RequestMethod.GET)
 	public List<Event> getList(){
 		return eventService.getAll();
@@ -33,6 +42,28 @@ public class EventController {
 	
 	@RequestMapping(method=RequestMethod.POST)
 	public Event add(@RequestBody Event event){
+		
+		System.out.println("test");
+		if (event.getTags()!=null){
+			List<Tag> tags= new ArrayList<Tag>();
+			for (Tag tag : event.getTags()) {
+				if (!tagService.findByName(tag).isPresent()){
+					tagService.commit(tag);
+					System.out.println("tagname :"+ tag.getTag());
+				}
+					
+				else{
+					tag=tagService.findByName(tag).get();
+					System.out.println("tagid :"+ tag.getId());
+				}
+				tags.add(tag);
+			}
+			for (Tag tag : tags) {
+				System.out.println("tagId :"+ tag.getId());
+			}
+			event.setTags(tags);
+			
+		}
 		return eventService.commit(event);
 	}
 	
